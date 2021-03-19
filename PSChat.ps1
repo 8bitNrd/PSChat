@@ -1,7 +1,7 @@
+$userId = Read-Host "Who are you?"
 do
 {
     Clear-Host
-    $userId = Read-Host "Who are you?"
     [Int16]$isNewChat = Read-Host "Is this a new chat? (Answer: 1=Yes | 2=No)" 
 }
 While($isNewChat -ne 1 -and $isNewChat -ne 2)
@@ -13,7 +13,7 @@ if($isNewChat -eq 1)
 }
 elseif ($isNewChat -eq 2) 
 {
-    $filePath = Read-Host "Wher is your chat located" 
+    $filePath = Read-Host "Where is your chat located" 
 }
 
 do
@@ -21,11 +21,7 @@ do
     Clear-Host
     Get-Content $filePath | Select-Object -Last 10
     $message = Read-Host "Type Message (Enter=Refresh)"
-    if($message.Length -eq 0)
-    {
-        Get-Content $filePath | Select-Object -Last 10
-    }
-    elseif ($message.Length -gt 0)
+    if($message.Length -gt 0)
     {
         Add-Content -Path $filePath -Value $($userId + " - " + $message)
     }
