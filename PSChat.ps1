@@ -5,6 +5,7 @@ do
     [Int16]$isNewChat = Read-Host "Is this a new chat? (Answer: 1=Yes | 2=No)" 
 }
 While($isNewChat -ne 1 -and $isNewChat -ne 2)
+
 if($isNewChat -eq 1)
 {
     $filePath = Read-Host "where would you like to store your new chat"
@@ -19,17 +20,14 @@ do
 {
     Clear-Host
     Get-Content $filePath | Select-Object -Last 10
-    [Int16]$action = Read-Host "Select Action (1=refresh | 2=New Mesage)"
-    if($action -eq 1)
+    $message = Read-Host "Type Message (Enter=Refresh)"
+    if($message.Length -eq 0)
     {
         Get-Content $filePath | Select-Object -Last 10
     }
-    elseif ($action -eq 2)
+    elseif ($message.Length -gt 0)
     {
-        $newMessage =  Read-Host "Type New Message: "
-        Add-Content -Path $filePath -Value $($userId + " - " + $newMessage)
-
+        Add-Content -Path $filePath -Value $($userId + " - " + $message)
     }
-    
 }
 while ($true)
